@@ -1,66 +1,79 @@
 # PS4Debug
-This payload project is a debugger for the PS4, written in C. It plays a crucial role in enabling programs like **PS4Cheater** and **PS4Reaper** to remotely perform debugging operations on the PS4 system from a PC.  
+PS4Debug is a payload-based debugger for the PS4, written in C. It is a critical tool for enabling applications like **PS4Cheater** to perform remote debugging operations on a PS4 system via a PC.
 
-Currently, the debugger operates only in **User-Mode**, as kernel-mode debugging is not yet supported. While this limitation exists, there are plans to explore and implement kernel-mode functionality in the future.  
+Currently, the debugger operates in **User-Mode**, as kernel-mode debugging is not supported yet. However, there are plans to explore and implement kernel-mode functionality in the future.
+<br><br>
 
+## Features
 
-## Debugger Features
-### Breakpoints and Watchpoints  
-- You can set, remove, or manage software breakpoints as needed.  
-- Hardware breakpoints are supported, using the PS4 CPU’s debug registers to pause programs conditionally.  
-- Watchpoints are available to monitor specific memory locations for read or write access.
+The debugger offers several powerful features for managing processes, memory, and threads on the PS4. Below is a breakdown of its capabilities:
 
-### Process Being Debugged
-#### Process Execution Control Hijack
-`The Debugger is able to hijack and control the execution, of the currently debugged process`
-- Process control, include causing the Process to:
-  - **Pause:** Temporarily stop process execution.
-  - **Resume:** Continue execution after pausing.
-  - **Terminate:** Forcefully stop running processes.
-  - **Step Execution:** Run one instruction at a time for detailed debugging.
+<details>
+  <summary>General Debugging Features</summary>
 
-#### Process Memory Operations
-- **Read and Write Process Memory**: 
-  - The Debugger can read from, and write to, locations within the process memory.
-- **Memory Map**: View the memory layout and protections for a process.
----
+- **Debugger is able to**:
+  - Add, remove, and manage both software and hardware breakpoints.
+  - Monitor specific memory addresses for read/write access using watchpoints.
+  
+</details>
 
-### Process Info  
-- Get details about running processes, like IDs, names, paths, and more.
-
-### Thread Management  
-- Pause or resume specific threads within a process.  
-- Get detailed info about threads, like their state and registers.
-
-### Debug Context  
-- Clean up resources when detaching from a process to ensure smooth operation.
-
-### Debug Registers  
-- Access and control CPU debug registers for managing breakpoints and watchpoints.
-
-### Notifications and Errors  
-- Get status updates and helpful error messages to understand what’s happening.
-
-### Memory Management  
-- **Allocate Memory**: Add memory to a target process for debugging purposes.  
-- **Free Memory**: Remove memory allocations when they’re no longer needed.
-
-### Communication  
-- The debugger uses a reliable client-server system (RPC) to make sure everything communicates smoothly.
+<details>
+  <summary>Process Execution Control</summary>
+  
+- **Debugger is able to**:
+  - Pause the execution of a process (causes the game to freeze on the screen).  
+  - Resume a paused process.  
+  - Terminate a process by forcefully ending its execution.  
+  - Execute instructions one at a time after a breakpoint is hit (Single-Step Execution), allowing for detailed analysis of program behavior.
 
 </details>
-# TODO/Goal's List
-- Making it PS4 Firmware agnostic:
-  - So that instead of having to work with multiple projects, each supporting a different firmware version.<br>
-    One could instead, implement a method that would automatically choose what FW-specific (ex: Offsets) to use in accordance to current fw.
-- More **efficient**, and **optimized** comparison algorithm/logic used for scan results.
-- More Stable version of PS4Debug, in which the likleyhood of kernel panics, freezing of processes, etc. are less
-- A **Terminate PS4Debug** function, that the user can select on the PS4Cheater.
-  - Function to be used in the event of the user not wanting to debug anymore:<br>
-    It should do a full scale cleanup, doing things such:
-    - Unsetting any current breakpoints or watchpoint.
-    - Terminating any ongoing scans, or tasks being ran by the debugger.
-    - Shutting down the network server any breakpoints, watchpoints, thenThis function will in the event of user wanting to quit debuggingFunction that will stop a more stable
-Implementing a PS4 Firmware Agnostic approach:Firmware Agnostic approach
-   Rather than having 5 Projects for each supported firmware (5.05, 6.72, 7.02, 7.55, 9.00).
-   We can have a single project, that will automatically adjust offsets in accordance to fw.
+
+<details>
+  <summary>Memory Operations</summary>
+  
+- **Debugger is able to**:
+  - Read memory from a process: Allowing access to data stored in the process’s memory.  
+  - Write memory to a process: Modifying the values stored in the process’s memory.  
+  - View the memory layout of a process: And inspect its memory regions and protections.
+
+</details>
+
+<details>
+  <summary>Process Information</summary>
+  
+- **Debugger is able to**:
+  - Retrieve metadata of running processes: Such as their process IDs (PIDs), names, paths, and other relevant details.
+
+</details>
+
+<details>
+  <summary>Thread Management</summary>
+  
+- **Debugger is able to**:
+  - pause individual threads within a process.  
+  - resume paused threads.  
+  - inspect thread details: including their state and register values.
+
+</details>
+
+<details>
+  <summary>Debug Registers</summary>
+  
+- **Debugger is able to**:
+  - access and control CPU debug registers: enabling advanced breakpoint and watchpoint handling.
+
+</details>
+<br>
+
+## Goals and Future Plans
+- **1. Firmware-Agnostic Support**:  
+  Implement a method to make PS4Debug adaptable to any PS4 firmware version by dynamically selecting offsets and configurations based on the detected firmware.  
+- **2. Improved Performance**:  
+  Optimize the scanning and comparison algorithms for better efficiency and faster processing.  
+- **3. Enhanced Stability**:  
+  Reduce the likelihood of kernel panics and process crashes during debugging operations.  
+- **4. Terminate PS4Debug Function**:  
+  Add a function to cleanly stop PS4Debug when the user no longer wishes to debug. This would involve:  
+  - Removing all breakpoints and watchpoints.  
+  - Canceling ongoing scans and other tasks.  
+  - Shutting down the network server.  
