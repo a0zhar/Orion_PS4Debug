@@ -2,7 +2,11 @@
 PS4Debug is a payload-based debugger for the PS4, written in C. It is a critical tool for enabling applications like **PS4Cheater** to perform remote debugging operations on a PS4 system via a PC.
 
 Currently, the debugger operates in **User-Mode**, as kernel-mode debugging is not supported yet. However, there are plans to explore and implement kernel-mode functionality in the future.
-<br><br>
+
+## Support
+This fork of PS4Debug supports PS4 system firmware: 5.05, 6.72, and 7.00 to 11.00.
+- Thanks to [EchoStretch](https://github.com/EchoStretch)
+
 
 ## Features
 
